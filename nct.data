@@ -18,34 +18,372 @@ body{
   padding:20px;
   border-radius:16px;
   margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h2{
+  margin-top:0;
+  color:#333;
+  border-bottom:2px solid #111;
+  padding-bottom:10px;
+}
+
+.bar-container{
+  background:#e0e0e0;
+  border-radius:999px;
+  margin-top:8px;
+  overflow:hidden;
 }
 
 .bar{
   height:28px;
-  background:#111;
+  background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
   border-radius:999px;
-  margin-top:8px;
+  transition:width 0.3s ease;
+  display:flex;
+  align-items:center;
+  padding-left:10px;
+  color:white;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.table-container{
+  overflow-x:auto;
+  margin-top:20px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+}
+
+th,td{
+  padding:12px;
+  text-align:left;
+  border-bottom:1px solid #e0e0e0;
+}
+
+th{
+  background:#111;
+  color:white;
+  font-weight:bold;
+  position:sticky;
+  top:0;
+}
+
+tr:hover{
+  background:#f5f5f5;
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  margin-top:15px;
+}
+
+.stat-item{
+  background:#f8f9fa;
+  padding:15px;
+  border-radius:12px;
+  text-align:center;
+}
+
+.stat-number{
+  font-size:32px;
+  font-weight:bold;
+  color:#667eea;
+}
+
+.stat-label{
+  font-size:14px;
+  color:#666;
+  margin-top:5px;
+}
+
+.option-row{
+  display:flex;
+  align-items:center;
+  margin-bottom:12px;
+  gap:10px;
+}
+
+.option-label{
+  min-width:80px;
+  font-weight:bold;
+}
+
+.option-bar-wrapper{
+  flex:1;
+  background:#e0e0e0;
+  border-radius:999px;
+  height:28px;
+  overflow:hidden;
+}
+
+.option-bar{
+  height:100%;
+  background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+  border-radius:999px;
+  transition:width 0.3s ease;
+  display:flex;
+  align-items:center;
+  padding-left:10px;
+  color:white;
+  font-size:12px;
+  font-weight:bold;
+  min-width:fit-content;
+}
+
+.option-count{
+  min-width:100px;
+  text-align:right;
+  font-size:14px;
+  color:#666;
+}
+
+.refresh-btn{
+  background:#667eea;
+  color:white;
+  border:none;
+  padding:12px 24px;
+  border-radius:8px;
+  font-size:16px;
+  cursor:pointer;
+  margin-bottom:20px;
+  transition:all 0.3s ease;
+}
+
+.refresh-btn:hover{
+  background:#764ba2;
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(102,126,234,0.4);
+}
+
+.loading{
+  text-align:center;
+  padding:40px;
+  font-size:18px;
+  color:#666;
+}
+
+.filter-btn{
+  background:#f0f0f0;
+  border:2px solid #ddd;
+  padding:8px 16px;
+  border-radius:6px;
+  cursor:pointer;
+  margin:5px;
+  transition:all 0.2s;
+}
+
+.filter-btn.active{
+  background:#667eea;
+  color:white;
+  border-color:#667eea;
+}
+
+.filter-panel{
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.filter-panel h3{
+  margin-top:0;
+  margin-bottom:15px;
+  color:#333;
+}
+
+.filter-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:15px;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.filter-group{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.filter-group label{
+  font-size:14px;
+  color:#666;
+  font-weight:bold;
+}
+
+.filter-group input,
+.filter-group select{
+  padding:8px 12px;
+  border:2px solid #ddd;
+  border-radius:6px;
+  font-size:14px;
+  min-width:150px;
+}
+
+.filter-group input:focus,
+.filter-group select:focus{
+  outline:none;
+  border-color:#667eea;
+}
+
+.btn-group{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.export-btn{
+  background:#27ae60;
+  color:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:6px;
+  font-size:14px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+.export-btn:hover{
+  background:#229954;
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(39,174,96,0.4);
+}
+
+.export-btn.secondary{
+  background:#3498db;
+}
+
+.export-btn.secondary:hover{
+  background:#2980b9;
+  box-shadow:0 4px 12px rgba(52,152,219,0.4);
+}
+
+.apply-filter-btn{
+  background:#667eea;
+  color:white;
+  border:none;
+  padding:10px 24px;
+  border-radius:6px;
+  font-size:14px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+.apply-filter-btn:hover{
+  background:#764ba2;
+  transform:translateY(-2px);
+}
+
+.reset-filter-btn{
+  background:#95a5a6;
+  color:white;
+  border:none;
+  padding:10px 24px;
+  border-radius:6px;
+  font-size:14px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+.reset-filter-btn:hover{
+  background:#7f8c8d;
+  transform:translateY(-2px);
+}
+
+.type-filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+
+.active-filters{
+  margin-top:15px;
+  padding:10px;
+  background:#f8f9fa;
+  border-radius:8px;
+  font-size:14px;
+  color:#666;
+}
+
+.active-filters strong{
+  color:#333;
 }
 </style>
 </head>
 
 <body>
 
-<h1>NCT 数据后台</h1>
+<h1>📊 NCT 人格测试数据后台</h1>
+
+<button class="refresh-btn" onclick="loadData()">🔄 刷新数据</button>
+
+<!-- 筛选面板 -->
+<div class="filter-panel">
+  <h3>🔍 数据筛选</h3>
+  
+  <div class="filter-row">
+    <div class="filter-group">
+      <label>开始日期</label>
+      <input type="date" id="filter-start-date">
+    </div>
+    
+    <div class="filter-group">
+      <label>结束日期</label>
+      <input type="date" id="filter-end-date">
+    </div>
+    
+    <div class="filter-group">
+      <label>人格类型</label>
+      <div class="type-filters" id="type-filters">
+        <button class="filter-btn active" data-type="all" onclick="toggleTypeFilter(this)">全部</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="btn-group">
+    <button class="apply-filter-btn" onclick="applyFilters()">✅ 应用筛选</button>
+    <button class="reset-filter-btn" onclick="resetFilters()">🔄 重置筛选</button>
+    <button class="export-btn" onclick="exportAllCSV()">📥 导出全部CSV</button>
+    <button class="export-btn secondary" onclick="exportFilteredCSV()">📥 导出筛选结果CSV</button>
+  </div>
+  
+  <div class="active-filters" id="active-filters" style="display:none;">
+    <strong>当前筛选：</strong><span id="filter-description"></span>
+  </div>
+</div>
 
 <div class="card">
-  <h2>总测试人数</h2>
-  <div id="total"></div>
+  <h2>📈 总体概览</h2>
+  <div id="overview" class="stat-grid"></div>
+</div>
+
+<div class="card">
+  <h2>🎭 人格分布统计</h2>
+  <div id="types"></div>
 </div>
   
-  <div class="card">
-  <h2>题目选项统计</h2>
+<div class="card">
+  <h2>📝 题目选项统计</h2>
   <div id="questions"></div>
 </div>
 
 <div class="card">
-  <h2>人格分布</h2>
-  <div id="types"></div>
+  <h2>👥 详细测试记录</h2>
+  <div class="table-container">
+    <table id="records-table">
+      <thead id="records-thead"></thead>
+      <tbody id="records-tbody"></tbody>
+    </table>
+  </div>
 </div>
 
 <script>
@@ -58,174 +396,431 @@ const supabaseClient=supabase.createClient(
   supabaseKey
 );
 
+// 题目配置
+const QUESTIONS_CONFIG={
+  q0:'第1题：你平时使用社交媒体查看附近动态的频率？',
+  q1:'第2题：当你看到邻居在公共区域活动时，你的感受是？',
+  q2:'第3题：评价一下当需要和陌生人进行简单互动（如问路、短暂聊天）时的难度系数：',
+  q3:'第4题：评价一下你和熟人或者朋友深入交谈（分享真实感受、谈论价值观等）的难度系数：',
+  q4:'第5题：你听过"家附近慢慢变陌生"这种现象，也就是大家常说的"附近的消失"吗？',
+  q5:'第6题：你觉得你住的地方，"附近"正在消失吗？',
+  q6:'第7题：对于"家附近越来越陌生"这件事，你的态度是？',
+  q7:'第8题：你觉得"家附近越来越陌生"的罪魁祸首是？（多选）',
+  q8:'第9题：你更认同以下哪种观点？',
+  q9:'第10题：给表格中的说法打打分吧',
+  q10:'第11题：未来你想不想多花点心思，和家附近的人/环境建立连接？',
+  q11:'第12题：【开放题】关于"家附近变陌生"，你有没有哪个瞬间感触很深？'
+};
+
+const OPTION_LABELS={
+  A:'A选项',B:'B选项',C:'C选项',D:'D选项',E:'E选项',F:'F选项',G:'G选项'
+};
+
+// 全局变量存储所有数据
+let allData=[];
+let filteredData=[];
+let selectedTypes=new Set(['all']);
+
 async function loadData(){
 
-  const { data,error } = await supabaseClient
-    .from('test_results')
-    .select('*');
+  document.getElementById('overview').innerHTML='<div class="loading">⏳ 正在加载数据...</div>';
 
-  console.log(data);
+  const { data,error } = await supabaseClient
+    .from('nct_test_results')
+    .select('*')
+    .order('created_at',{ascending:false});
+
+  console.log('加载的数据:',data);
 
   if(error){
-    console.log(error);
+    console.error('加载错误:',error);
+    document.getElementById('overview').innerHTML=`<div class="loading">❌ 加载失败：${error.message}</div>`;
     return;
   }
 
-  // 总人数
-  document.getElementById('total').innerHTML=data.length;
-
-  // 人格统计
-  const counts={};
-  
-  // 每道题统计
-  const questionStats={};
-
-  data.forEach(item=>{
-
-  // ===== 人格统计 =====
-
-  const code=item.result_code || '未知';
-
-  if(!counts[code]){
-    counts[code]=0;
+  if(!data || data.length===0){
+    document.getElementById('overview').innerHTML='<div class="loading">📭 暂无数据</div>';
+    return;
   }
 
-  counts[code]++;
-
-  // ===== 题目统计 =====
-
-const answers=item.answers;
-
-if(answers && typeof answers==='object'){
-
-  Object.keys(answers).forEach(q=>{
-
-    if(!questionStats[q]){
-      questionStats[q]={};
-    }
-
-    let value=answers[q];
-
-    // 跳过空值
-    if(
-      value===null ||
-      value===undefined ||
-      value===''
-    ){
-      return;
-    }
-
-    // 多选题
-    if(Array.isArray(value)){
-
-      value.forEach(v=>{
-
-        if(!questionStats[q][v]){
-          questionStats[q][v]=0;
-        }
-
-        questionStats[q][v]++;
-
-      });
-
-    }else{
-
-      // 单选题
-
-      if(!questionStats[q][value]){
-        questionStats[q][value]=0;
-      }
-
-      questionStats[q][value]++;
-
-    }
-
-  });
-
+  // 保存原始数据
+  allData=data;
+  
+  // 动态生成人格类型筛选按钮
+  updateTypeFilters(data);
+  
+  // 初始时显示全部数据
+  filteredData=allData;
+  renderData(allData);
+  
+  console.log('✅ 数据加载完成');
 }
 
-});
-
-  const container=document.getElementById('types');
-
-  Object.keys(counts).forEach(type=>{
-
-    const total=data.length;
-
-    const pct=Math.round(counts[type]/total*100);
-
-    container.innerHTML += `
-      <div style="margin-bottom:20px">
-
-        <div>
-          ${type}：${counts[type]}人（${pct}%）
-        </div>
-
-        <div style="
-          width:${pct}%;
-          background:#111;
-          height:24px;
-          border-radius:999px;
-          margin-top:6px;
-        "></div>
-
-      </div>
-    `;
+// ===== 更新人格类型筛选按钮 =====
+function updateTypeFilters(data){
+  const typeCounts={};
+  
+  data.forEach(item=>{
+    const code=item.result_code || '未知';
+    if(!typeCounts[code]) typeCounts[code]=0;
+    typeCounts[code]++;
   });
-  // ===== 渲染题目统计 =====
+  
+  const container=document.getElementById('type-filters');
+  container.innerHTML='<button class="filter-btn active" data-type="all" onclick="toggleTypeFilter(this)">全部</button>';
+  
+  Object.keys(typeCounts).sort().forEach(type=>{
+    const btn=document.createElement('button');
+    btn.className='filter-btn';
+    btn.dataset.type=type;
+    btn.textContent=`${type} (${typeCounts[type]})`;
+    btn.onclick=function(){toggleTypeFilter(this);};
+    container.appendChild(btn);
+  });
+}
 
-const qContainer=document.getElementById('questions');
+// ===== 切换人格类型筛选 =====
+function toggleTypeFilter(btn){
+  const type=btn.dataset.type;
+  
+  if(type==='all'){
+    selectedTypes.clear();
+    selectedTypes.add('all');
+    document.querySelectorAll('.type-filters .filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }else{
+    selectedTypes.delete('all');
+    document.querySelector('.type-filters .filter-btn[data-type="all"]').classList.remove('active');
+    
+    if(selectedTypes.has(type)){
+      selectedTypes.delete(type);
+      btn.classList.remove('active');
+    }else{
+      selectedTypes.add(type);
+      btn.classList.add('active');
+    }
+    
+    if(selectedTypes.size===0){
+      selectedTypes.add('all');
+      document.querySelector('.type-filters .filter-btn[data-type="all"]').classList.add('active');
+    }
+  }
+}
 
-Object.keys(questionStats).forEach(q=>{
+// ===== 应用筛选 =====
+function applyFilters(){
+  const startDate=document.getElementById('filter-start-date').value;
+  const endDate=document.getElementById('filter-end-date').value;
+  
+  filteredData=allData.filter(item=>{
+    // 日期筛选
+    if(startDate || endDate){
+      const itemDate=new Date(item.created_at);
+      
+      if(startDate){
+        const start=new Date(startDate);
+        start.setHours(0,0,0,0);
+        if(itemDate<start) return false;
+      }
+      
+      if(endDate){
+        const end=new Date(endDate);
+        end.setHours(23,59,59,999);
+        if(itemDate>end) return false;
+      }
+    }
+    
+    // 人格类型筛选
+    if(!selectedTypes.has('all')){
+      const code=item.result_code || '未知';
+      if(!selectedTypes.has(code)) return false;
+    }
+    
+    return true;
+  });
+  
+  // 显示当前筛选条件
+  updateFilterDescription(startDate,endDate);
+  
+  // 渲染筛选后的数据
+  renderData(filteredData);
+}
 
-  qContainer.innerHTML += `
-    <div style="
-      margin-top:40px;
-      padding-top:20px;
-      border-top:1px solid #ddd;
-    ">
-      <h3>${q}</h3>
+// ===== 更新筛选描述 =====
+function updateFilterDescription(startDate,endDate){
+  const desc=document.getElementById('filter-description');
+  const container=document.getElementById('active-filters');
+  
+  let parts=[];
+  
+  if(startDate) parts.push(`从 ${startDate}`);
+  if(endDate) parts.push(`到 ${endDate}`);
+  
+  if(!selectedTypes.has('all')){
+    parts.push(`人格类型：${Array.from(selectedTypes).join(', ')}`);
+  }
+  
+  if(parts.length>0){
+    desc.textContent=parts.join('，');
+    container.style.display='block';
+  }else{
+    container.style.display='none';
+  }
+}
+
+// ===== 重置筛选 =====
+function resetFilters(){
+  document.getElementById('filter-start-date').value='';
+  document.getElementById('filter-end-date').value='';
+  
+  selectedTypes.clear();
+  selectedTypes.add('all');
+  
+  document.querySelectorAll('.type-filters .filter-btn').forEach(btn=>{
+    btn.classList.remove('active');
+  });
+  document.querySelector('.type-filters .filter-btn[data-type="all"]').classList.add('active');
+  
+  document.getElementById('active-filters').style.display='none';
+  
+  filteredData=allData;
+  renderData(allData);
+}
+
+// ===== 渲染数据 =====
+function renderData(data){
+  if(!data || data.length===0){
+    document.getElementById('overview').innerHTML='<div class="loading">📭 没有符合条件的数据</div>';
+    document.getElementById('types').innerHTML='';
+    document.getElementById('questions').innerHTML='';
+    document.getElementById('records-tbody').innerHTML='';
+    return;
+  }
+  
+  // 更新总体概览
+  const overviewContainer=document.getElementById('overview');
+  
+  const typeCounts={};
+  const questionStats={};
+  
+  data.forEach(item=>{
+    const code=item.result_code || '未知';
+    if(!typeCounts[code]) typeCounts[code]=0;
+    typeCounts[code]++;
+    
+    const answers=item.answers || {};
+    Object.keys(answers).forEach(q=>{
+      if(!questionStats[q]) questionStats[q]={};
+      let value=answers[q];
+      if(value===null || value===undefined || value==='') return;
+      
+      if(Array.isArray(value)){
+        value.forEach(v=>{
+          if(!questionStats[q][v]) questionStats[q][v]=0;
+          questionStats[q][v]++;
+        });
+      }else{
+        if(!questionStats[q][value]) questionStats[q][value]=0;
+        questionStats[q][value]++;
+      }
+    });
+  });
+  
+  overviewContainer.innerHTML=`
+    <div class="stat-item">
+      <div class="stat-number">${data.length}</div>
+      <div class="stat-label">筛选后人数</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">${Object.keys(typeCounts).length}</div>
+      <div class="stat-label">人格类型数</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">${Object.keys(questionStats).length}</div>
+      <div class="stat-label">已答题目数</div>
     </div>
   `;
-
-  const options=questionStats[q];
-
-  const totalForQuestion=Object.values(options)
-    .reduce((a,b)=>a+b,0);
-
-  Object.keys(options).forEach(option=>{
-
-    const count=options[option];
-
-    const pct=Math.round(
-      count/totalForQuestion*100
-    );
-
-    qContainer.innerHTML += `
-
-      <div style="margin-bottom:18px">
-
-        <div>
-          ${option}：
-          ${count}人
-          （${pct}%）
+  
+  // 渲染人格分布
+  const typesContainer=document.getElementById('types');
+  typesContainer.innerHTML='';
+  
+  const sortedTypes=Object.entries(typeCounts).sort((a,b)=>b[1]-a[1]);
+  sortedTypes.forEach(([type,count])=>{
+    const pct=Math.round(count/data.length*100);
+    typesContainer.innerHTML+=`
+      <div class="option-row">
+        <div class="option-label">${type}</div>
+        <div class="option-bar-wrapper">
+          <div class="option-bar" style="width:${pct}%">${pct}%</div>
         </div>
-
-        <div style="
-          width:${pct}%;
-          height:20px;
-          background:#111;
-          border-radius:999px;
-          margin-top:6px;
-        "></div>
-
+        <div class="option-count">${count}人</div>
       </div>
-
     `;
   });
+  
+  // 渲染题目统计
+  const qContainer=document.getElementById('questions');
+  qContainer.innerHTML='';
+  
+  const sortedQuestions=Object.keys(questionStats).sort();
+  sortedQuestions.forEach(q=>{
+    const questionTitle=QUESTIONS_CONFIG[q] || q;
+    const options=questionStats[q];
+    const totalForQuestion=Object.values(options).reduce((a,b)=>a+b,0);
+    
+    qContainer.innerHTML+=`
+      <div style="margin-top:30px;padding-top:20px;border-top:2px solid #eee;">
+        <h3 style="color:#333;margin-bottom:15px;">${questionTitle}</h3>
+        <div style="font-size:14px;color:#666;margin-bottom:15px;">总答题数：${totalForQuestion}人</div>
+      </div>
+    `;
+    
+    const sortedOptions=Object.entries(options).sort((a,b)=>b[1]-a[1]);
+    sortedOptions.forEach(([option,count])=>{
+      const pct=Math.round(count/totalForQuestion*100);
+      const optionLabel=OPTION_LABELS[option] || option;
+      
+      qContainer.innerHTML+=`
+        <div class="option-row">
+          <div class="option-label">${optionLabel}</div>
+          <div class="option-bar-wrapper">
+            <div class="option-bar" style="width:${pct}%">${pct}%</div>
+          </div>
+          <div class="option-count">${count}人 (${pct}%)</div>
+        </div>
+      `;
+    });
+  });
+  
+  // 渲染详细记录表格
+  const thead=document.getElementById('records-thead');
+  const tbody=document.getElementById('records-tbody');
+  
+  let headerHTML='<tr><th>序号</th><th>测试时间</th><th>人格类型</th>';
+  sortedQuestions.forEach(q=>{
+    const shortTitle=QUESTIONS_CONFIG[q] ? QUESTIONS_CONFIG[q].split('：')[0] : q;
+    headerHTML+=`<th>${shortTitle}</th>`;
+  });
+  headerHTML+='</tr>';
+  thead.innerHTML=headerHTML;
+  
+  tbody.innerHTML='';
+  data.forEach((item,idx)=>{
+    const code=item.result_code || '未知';
+    const answers=item.answers || {};
+    const time=item.created_at ? new Date(item.created_at).toLocaleString('zh-CN') : '未知时间';
+    
+    let rowHTML=`<tr>
+      <td>${data.length-idx}</td>
+      <td>${time}</td>
+      <td><strong>${code}</strong></td>`;
+    
+    sortedQuestions.forEach(q=>{
+      const answer=answers[q];
+      let answerText='';
+      if(Array.isArray(answer)){
+        answerText=answer.join(', ');
+      }else if(answer){
+        answerText=answer;
+      }else{
+        answerText='<span style="color:#ccc;">未答</span>';
+      }
+      rowHTML+=`<td>${answerText}</td>`;
+    });
+    
+    rowHTML+='</tr>';
+    tbody.innerHTML+=rowHTML;
+  });
+}
 
-});
+// ===== CSV 导出功能 =====
+function convertToCSV(data){
+  if(!data || data.length===0) return '';
+  
+  // CSV 表头
+  const headers=['序号','测试时间','人格类型'];
+  
+  // 获取所有题目
+  const allQuestions=new Set();
+  data.forEach(item=>{
+    if(item.answers){
+      Object.keys(item.answers).forEach(q=>allQuestions.add(q));
+    }
+  });
+  
+  const sortedQuestions=Array.from(allQuestions).sort();
+  sortedQuestions.forEach(q=>{
+    headers.push(QUESTIONS_CONFIG[q] || q);
+  });
+  
+  // 构建 CSV 内容
+  let csv=headers.join(',')+'\n';
+  
+  data.forEach((item,idx)=>{
+    const row=[];
+    row.push(data.length-idx);
+    row.push(item.created_at ? new Date(item.created_at).toLocaleString('zh-CN') : '未知时间');
+    row.push(item.result_code || '未知');
+    
+    const answers=item.answers || {};
+    sortedQuestions.forEach(q=>{
+      let answer=answers[q] || '';
+      if(Array.isArray(answer)){
+        answer=answer.join(', ');
+      }
+      // CSV 转义：如果包含逗号或引号，需要用引号包裹
+      if(answer.toString().includes(',') || answer.toString().includes('"')){
+        answer='"'+answer.toString().replace(/"/g,'""')+'"';
+      }
+      row.push(answer);
+    });
+    
+    csv+=row.join(',')+'\n';
+  });
+  
+  return csv;
+}
 
+function downloadCSV(csv,filename){
+  if(!csv){
+    alert('没有数据可导出！');
+    return;
+  }
+  
+  // 添加 BOM 以支持 Excel 打开中文
+  const BOM='\uFEFF';
+  const blob=new Blob([BOM+csv],{type:'text/csv;charset=utf-8;'});
+  
+  const link=document.createElement('a');
+  link.href=URL.createObjectURL(blob);
+  link.download=filename;
+  
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function exportAllCSV(){
+  if(!allData || allData.length===0){
+    alert('没有数据可导出！');
+    return;
+  }
+  
+  const csv=convertToCSV(allData);
+  const filename=`NCT测试数据_全部_${new Date().toISOString().slice(0,10)}.csv`;
+  downloadCSV(csv,filename);
+}
+
+function exportFilteredCSV(){
+  if(!filteredData || filteredData.length===0){
+    alert('没有符合条件的数据可导出！');
+    return;
+  }
+  
+  const csv=convertToCSV(filteredData);
+  const filename=`NCT测试数据_筛选_${new Date().toISOString().slice(0,10)}.csv`;
+  downloadCSV(csv,filename);
 }
 
 loadData();
