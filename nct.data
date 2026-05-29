@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>NCT 数据后台</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+body{
+  font-family:sans-serif;
+  padding:40px;
+  background:#f5f5f5;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  margin-bottom:20px;
+}
+
+.bar{
+  height:28px;
+  background:#111;
+  border-radius:999px;
+  margin-top:8px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>NCT 数据后台</h1>
+
+<div class="card">
+  <h2>总测试人数</h2>
+  <div id="total"></div>
+</div>
+  
+  <div class="card">
+  <h2>题目选项统计</h2>
+  <div id="questions"></div>
+</div>
+
+<div class="card">
+  <h2>人格分布</h2>
+  <div id="types"></div>
+</div>
+
+<script>
+
+const supabaseUrl='https://kwxhzcrzhswgrxfuyjpv.supabase.co';
+const supabaseKey='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt3eGh6Y3J6aHN3Z3J4ZnV5anB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NDA0MzksImV4cCI6MjA5NTUxNjQzOX0.XZ3yjbLOLae5oknq3WBNBPfVgmZbDOS6125nP7mjLOo';
+
+const supabaseClient=supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+async function loadData(){
+
+  const { data,error } = await supabaseClient
+    .from('test_results')
+    .select('*');
+
+  console.log(data);
+
+  if(error){
+    console.log(error);
+    return;
+  }
+
+  // 总人数
+  document.getElementById('total').innerHTML=data.length;
+
+  // 人格统计
+  const counts={};
+  
+  // 每道题统计
+  const questionStats={};
+
+  data.forEach(item=>{
+
+  // ===== 人格统计 =====
+
+  const code=item.result_code || '未知';
+
+  if(!counts[code]){
+    counts[code]=0;
+  }
+
+  counts[code]++;
+
+  // ===== 题目统计 =====
+
+const answers=item.answers;
+
+if(answers && typeof answers==='object'){
+
+  Object.keys(answers).forEach(q=>{
+
+    if(!questionStats[q]){
+      questionStats[q]={};
+    }
+
+    let value=answers[q];
+
+    // 跳过空值
+    if(
+      value===null ||
+      value===undefined ||
+      value===''
+    ){
+      return;
+    }
+
+    // 多选题
+    if(Array.isArray(value)){
+
+      value.forEach(v=>{
+
+        if(!questionStats[q][v]){
+          questionStats[q][v]=0;
+        }
+
+        questionStats[q][v]++;
+
+      });
+
+    }else{
+
+      // 单选题
+
+      if(!questionStats[q][value]){
+        questionStats[q][value]=0;
+      }
+
+      questionStats[q][value]++;
+
+    }
+
+  });
+
+}
+
+});
+
+  const container=document.getElementById('types');
+
+  Object.keys(counts).forEach(type=>{
+
+    const total=data.length;
+
+    const pct=Math.round(counts[type]/total*100);
+
+    container.innerHTML += `
+      <div style="margin-bottom:20px">
+
+        <div>
+          ${type}：${counts[type]}人（${pct}%）
+        </div>
+
+        <div style="
+          width:${pct}%;
+          background:#111;
+          height:24px;
+          border-radius:999px;
+          margin-top:6px;
+        "></div>
+
+      </div>
+    `;
+  });
+  // ===== 渲染题目统计 =====
+
+const qContainer=document.getElementById('questions');
+
+Object.keys(questionStats).forEach(q=>{
+
+  qContainer.innerHTML += `
+    <div style="
+      margin-top:40px;
+      padding-top:20px;
+      border-top:1px solid #ddd;
+    ">
+      <h3>${q}</h3>
+    </div>
+  `;
+
+  const options=questionStats[q];
+
+  const totalForQuestion=Object.values(options)
+    .reduce((a,b)=>a+b,0);
+
+  Object.keys(options).forEach(option=>{
+
+    const count=options[option];
+
+    const pct=Math.round(
+      count/totalForQuestion*100
+    );
+
+    qContainer.innerHTML += `
+
+      <div style="margin-bottom:18px">
+
+        <div>
+          ${option}：
+          ${count}人
+          （${pct}%）
+        </div>
+
+        <div style="
+          width:${pct}%;
+          height:20px;
+          background:#111;
+          border-radius:999px;
+          margin-top:6px;
+        "></div>
+
+      </div>
+
+    `;
+  });
+
+});
+
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
