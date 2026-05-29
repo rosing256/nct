@@ -426,7 +426,7 @@ async function loadData(){
   document.getElementById('overview').innerHTML='<div class="loading">⏳ 正在加载数据...</div>';
 
   const { data,error } = await supabaseClient
-    .from('nct_test_results')
+    .from('test_results')
     .select('*')
     .order('created_at',{ascending:false});
 
